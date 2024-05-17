@@ -26,9 +26,9 @@ from peeringdb.cli import check_load_config
 
 # main switches
 IPv4 = True
-IPv6 = False
-PROGRESS = True  # disable for less verbose output; automated jobs
-REFRESH_DATA = False
+IPv6 = True
+PROGRESS = False  # enable for debugging
+REFRESH_DATA = True
 
 # you may not need to modify those
 STATUS_INTERVAL = 10_000
