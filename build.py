@@ -24,16 +24,21 @@ from peeringdb.client import Client as PeeringDBClient
 from peeringdb.commands import Sync
 from peeringdb.cli import check_load_config
 
+# main switches
 IPv4 = True
 IPv6 = False
+PROGRESS = True  # disable for less verbose output; automated jobs
+REFRESH_DATA = False
+
+# you may not need to modify those
 STATUS_INTERVAL = 10_000
 DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
-REFRESH_DATA = False
-DATA_FILE_IP4 = 'data-raw-table_ip4.tsv'
-DATA_FILE_IP6 = 'data-raw-table_ip6.tsv'
 DESCRIPTION = 'OXL ASN Database (BSD 3-Clause License)'
 BGP_SOURCE = 'https://thyme.apnic.net/.combined'
+DATA_FILE_IP4 = 'data-raw-table_ip4.tsv'
+DATA_FILE_IP6 = 'data-raw-table_ip6.tsv'
 PDB_FILE = Path('peeringdb.sqlite3')
+
 mmdb_ip4_full = MMDBWriter(ip_version=4, description=DESCRIPTION)
 mmdb_ip6_full = MMDBWriter(ip_version=6, description=DESCRIPTION)
 mmdb_ip4_small = MMDBWriter(ip_version=4, description=DESCRIPTION)
@@ -201,12 +206,12 @@ def cleanup():
         pass
 
 
-if not PDB_FILE.is_file() or PDB_FILE.stat().st_size < 10_000_000:
+if REFRESH_DATA or (not PDB_FILE.is_file() or PDB_FILE.stat().st_size < 10_000_000):
     print('\n### SYNCING PEERINGDB ###')
     # running 'peeringdb sync' programmatically
     Sync().handle(
         check_load_config(getcwd()),
-        verbose=False, quiet=False, init=False, since=-1,
+        verbose=False, quiet=not PROGRESS, init=False, since=-1,
         fetch_private=False,
     )
 
@@ -229,7 +234,7 @@ if IPv4:
     print('\n### PARSING IPv4 ###')
     with open(DATA_FILE_IP4, 'r', encoding='utf8') as f:
         for line in f.readlines():
-            if c % STATUS_INTERVAL == 0:
+            if PROGRESS and c % STATUS_INTERVAL == 0:
                 print('PARSING', c)
 
             net, asn = line.strip().split('\t')
@@ -246,7 +251,7 @@ if IPv6:
     print('\n### PARSING IPv6 ###')
     with open(DATA_FILE_IP6, 'r', encoding='utf8') as f:
         for line in f.readlines():
-            if c % STATUS_INTERVAL == 0:
+            if PROGRESS and c % STATUS_INTERVAL == 0:
                 print('PARSING', c)
 
             # not tab separated :(
@@ -270,7 +275,7 @@ print('\n### ADDING ###')
 logging.getLogger('mmdb_writer').setLevel(logging.WARNING)
 c = 0
 for asn, data in asn_nets.items():
-    if c % STATUS_INTERVAL == 0:
+    if PROGRESS and c % STATUS_INTERVAL == 0:
         print('ADDING', c)
 
     # add additional ASN info below
