@@ -48,6 +48,7 @@ def _empty(v: any) -> any:
 
 class ASN:
     def __init__(self, asn_id: int):
+        # pylint: disable=E1101
         self.id = asn_id
         self.ip4 = IPSet()
         self.ip6 = IPSet()
