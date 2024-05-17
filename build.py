@@ -33,6 +33,7 @@ DATA_FILE_IP4 = 'data-raw-table_ip4.tsv'
 DATA_FILE_IP6 = 'data-raw-table_ip6.tsv'
 DESCRIPTION = 'OXL ASN Database (BSD 3-Clause License)'
 BGP_SOURCE = 'https://thyme.apnic.net/.combined'
+PDB_FILE = Path('peeringdb.sqlite3')
 mmdb_ip4_full = MMDBWriter(ip_version=4, description=DESCRIPTION)
 mmdb_ip6_full = MMDBWriter(ip_version=6, description=DESCRIPTION)
 mmdb_ip4_small = MMDBWriter(ip_version=4, description=DESCRIPTION)
@@ -190,29 +191,31 @@ class ASN:
 
 def cleanup():
     try:
-        remove_file(DATA_FILE_IP4)
-        remove_file(DATA_FILE_IP6)
+        if IPv4:
+            remove_file(DATA_FILE_IP4)
+
+        if IPv6:
+            remove_file(DATA_FILE_IP6)
 
     except FileNotFoundError:
         pass
 
 
-if not REFRESH_DATA and (
-        Path('peeringdb.sqlite3').stat().st_size < 10_000_000 or
-        (IPv4 and not Path(DATA_FILE_IP4).is_file()) or
-        (IPv6 and not Path(DATA_FILE_IP6).is_file())
-):
-    REFRESH_DATA = True
-
-if REFRESH_DATA:
-    print('\n### DOWNLOADING DATA ###')
-
-    cleanup()
+if not PDB_FILE.is_file() or PDB_FILE.stat().st_size < 10_000_000:
+    print('\n### SYNCING PEERINGDB ###')
+    # running 'peeringdb sync' programmatically
     Sync().handle(
         check_load_config(getcwd()),
         verbose=False, quiet=False, init=False, since=-1,
         fetch_private=False,
     )
+
+if REFRESH_DATA or \
+        (IPv4 and not Path(DATA_FILE_IP4).is_file()) or \
+        (IPv6 and not Path(DATA_FILE_IP6).is_file()):
+    print('\n### DOWNLOADING BGP-DATA ###')
+    cleanup()
+
     if IPv4:
         urlretrieve(f'{BGP_SOURCE}/data-raw-table', DATA_FILE_IP4)
 
@@ -229,7 +232,8 @@ if IPv4:
             if c % STATUS_INTERVAL == 0:
                 print('PARSING', c)
 
-            net, asn = line.split('\t')
+            net, asn = line.strip().split('\t')
+            asn = int(asn)
             if asn not in asn_nets:
                 asn_nets[asn] = ASN(asn)
 
@@ -246,12 +250,14 @@ if IPv6:
                 print('PARSING', c)
 
             # not tab separated :(
-            net, asn = line.split(' ', 1)
+            net, asn = line.strip().split(' ', 1)
             asn = asn.strip()
 
             if not asn.isdigit():
                 # some bad data
                 continue
+
+            asn = int(asn)
 
             if asn not in asn_nets:
                 asn_nets[asn] = ASN(asn)

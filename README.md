@@ -1,6 +1,6 @@
 # Open IP to ASN/Internet Provider Database
 
-If you have on how to improve this project: [feel free to start a discussion](https://github.com/O-X-L/geoip-asn/discussions)
+If you have an idea on how to improve this project: [feel free to start a discussion](https://github.com/O-X-L/geoip-asn/discussions)
 
 ## Data sources
 
@@ -18,17 +18,18 @@ Data is updated daily.
 
 ### Download
 
-* [IPv4 Full in MMDB format](https://geoip.oxl.at/file/asn_ipv4_full.mmdb.zip) (*recommended*)
-* [IPv6 Full in MMDB format](https://geoip.oxl.at/file/asn_ipv6_full.mmdb.zip) (*recommended*)
-<!--
-* [IPv4 Full in CVS format](https://geoip.oxl.at/file/asn_ipv4_full.csv.zip)
-* [IPv6 Full in CVS format](https://geoip.oxl.at/file/asn_ipv6_full.csv.zip)
--->
-* [IPv4 Stripped in MMDB format](https://geoip.oxl.at/file/asn_ipv4_small.mmdb.zip)
+* [IPv4 Stripped in MMDB format](https://geoip.oxl.at/file/asn_ipv4_small.mmdb.zip) (*recommended*)
 * [IPv6 Stripped in MMDB format](https://geoip.oxl.at/file/asn_ipv6_small.mmdb.zip)
 <!--
 * [IPv4 Stripped in CSV format](https://geoip.oxl.at/file/asn_ipv4_small.csv.zip)
 * [IPv6 Stripped in CSV format](https://geoip.oxl.at/file/asn_ipv4_small.csv.zip)
+-->
+
+* [IPv4 Full in MMDB format](https://geoip.oxl.at/file/asn_ipv4_full.mmdb.zip)
+* [IPv6 Full in MMDB format](https://geoip.oxl.at/file/asn_ipv6_full.mmdb.zip)
+<!--
+* [IPv4 Full in CVS format](https://geoip.oxl.at/file/asn_ipv4_full.csv.zip)
+* [IPv6 Full in CVS format](https://geoip.oxl.at/file/asn_ipv6_full.csv.zip)
 -->
 
 Limit: 1 Download per day
@@ -54,6 +55,7 @@ Limits:
 * 10 Requests per min
 * 50 Requests per 10 min
 * 100 Requests per hour
+* 200 Requests per day
 
 ----
 
