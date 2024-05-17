@@ -52,9 +52,7 @@ curl -XGET https://geoip.oxl.at/api/asn/1.1.1.1
 
 Limits:
 
-* 10 Requests per min
 * 50 Requests per 10 min
-* 100 Requests per hour
 * 200 Requests per day
 
 ----
