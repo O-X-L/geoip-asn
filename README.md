@@ -1,5 +1,7 @@
 # Open IP to ASN/Internet Provider Database
 
+If you have on how to improve this project: [feel free to start a discussion](https://github.com/O-X-L/geoip-asn/discussions)
+
 ## Data sources
 
 IP to ASN:
@@ -12,14 +14,32 @@ ASN information:
 
 ## Databases
 
+Data is updated daily.
+
 ### Download
 
-* [Full in MMDB format](https://geoip.oxl.at/file/asn_full.mmdb.zip) (*recommended*)
-<!--* [Full in CVS format](https://geoip.oxl.at/file/asn_full.csv.zip)-->
-* [Stripped in MMDB format](https://geoip.oxl.at/file/asn_small.mmdb.zip)
-<!--* [Stripped in CSV format](https://geoip.oxl.at/file/asn_small.csv.zip)-->
+* [IPv4 Full in MMDB format](https://geoip.oxl.at/file/asn_ipv4_full.mmdb.zip) (*recommended*)
+* [IPv6 Full in MMDB format](https://geoip.oxl.at/file/asn_ipv6_full.mmdb.zip) (*recommended*)
+<!--
+* [IPv4 Full in CVS format](https://geoip.oxl.at/file/asn_ipv4_full.csv.zip)
+* [IPv6 Full in CVS format](https://geoip.oxl.at/file/asn_ipv6_full.csv.zip)
+-->
+* [IPv4 Stripped in MMDB format](https://geoip.oxl.at/file/asn_ipv4_small.mmdb.zip)
+* [IPv6 Stripped in MMDB format](https://geoip.oxl.at/file/asn_ipv6_small.mmdb.zip)
+<!--
+* [IPv4 Stripped in CSV format](https://geoip.oxl.at/file/asn_ipv4_small.csv.zip)
+* [IPv6 Stripped in CSV format](https://geoip.oxl.at/file/asn_ipv4_small.csv.zip)
+-->
 
-Limit: 1 Download per IP and day
+Limit: 1 Download per day
+
+
+#### Schema Examples
+
+* [Full](https://github.com/O-X-L/geoip-asn/blob/latest/example/full.json)
+* [Small](https://github.com/O-X-L/geoip-asn/blob/latest/example/small.json)
+
+----
 
 ### API
 

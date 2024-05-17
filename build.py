@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # LICENSE: GPLv3
 # COPYRIGHT: Rath Rene
 
@@ -7,6 +8,8 @@
 #    https://bgp.nsrc.org/REN/.combined/
 #  ASN infos
 #    https://www.peeringdb.com/
+
+# todo: implement CSV db format
 
 import logging
 from pathlib import Path
@@ -28,8 +31,8 @@ DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
 REFRESH_DATA = False
 DATA_FILE_IP4 = 'data-raw-table_ip4.tsv'
 DATA_FILE_IP6 = 'data-raw-table_ip6.tsv'
-pdb = PeeringDBClient()
 DESCRIPTION = 'OXL ASN Database (BSD 3-Clause License)'
+BGP_SOURCE = 'https://thyme.apnic.net/.combined'
 mmdb_ip4_full = MMDBWriter(ip_version=4, description=DESCRIPTION)
 mmdb_ip6_full = MMDBWriter(ip_version=6, description=DESCRIPTION)
 mmdb_ip4_small = MMDBWriter(ip_version=4, description=DESCRIPTION)
@@ -55,10 +58,7 @@ class ASN:
 
         else:
             self._org = pdb.all(resource.Organization).filter(id=self._info.org_id).first()
-            self._contacts = [
-                contact for contact in
-                pdb.all(resource.NetworkContact).filter(net_id=self._info.id)
-            ]
+            self._contacts = list(pdb.all(resource.NetworkContact).filter(net_id=self._info.id))
 
     @property
     def info(self) -> dict:
@@ -104,6 +104,9 @@ class ASN:
     @property
     def info_small(self) -> dict:
         full = self.info
+        if len(full) == 0:
+            return full
+
         return dict(
             name=full['name'],
             name_long=full['name_long'],
@@ -142,6 +145,9 @@ class ASN:
     @property
     def organization_small(self) -> dict:
         full = self.organization
+        if len(full) == 0:
+            return full
+
         return dict(
             name=full['name'],
             name_long=full['name_long'],
@@ -169,11 +175,15 @@ class ASN:
 
     @property
     def contacts_small(self) -> dict:
+        full = self.contacts
+        if len(full) == 0:
+            return full
+
         return {
             role: dict(
                 name=contact['name'],
                 email=contact['email'],
-            ) for role, contact in self.contacts.items()
+            ) for role, contact in full.items()
         }
 
 
@@ -194,7 +204,7 @@ if not REFRESH_DATA and (
     REFRESH_DATA = True
 
 if REFRESH_DATA:
-    print('### DOWNLOADING DATA ###')
+    print('\n### DOWNLOADING DATA ###')
 
     cleanup()
     Sync().handle(
@@ -203,21 +213,22 @@ if REFRESH_DATA:
         fetch_private=False,
     )
     if IPv4:
-        urlretrieve('https://thyme.apnic.net/.combined/data-raw-table', DATA_FILE_IP4)
+        urlretrieve(f'{BGP_SOURCE}/data-raw-table', DATA_FILE_IP4)
 
     if IPv6:
-        urlretrieve('https://thyme.apnic.net/.combined/ipv6-raw-table', DATA_FILE_IP6)
+        urlretrieve(f'{BGP_SOURCE}/ipv6-raw-table', DATA_FILE_IP6)
 
+pdb = PeeringDBClient()
 asn_nets = {}
 if IPv4:
     c = 0
-    print('### PARSING IPv4 ###')
+    print('\n### PARSING IPv4 ###')
     with open(DATA_FILE_IP4, 'r', encoding='utf8') as f:
-        for l in f.readlines():
+        for line in f.readlines():
             if c % STATUS_INTERVAL == 0:
                 print('PARSING', c)
 
-            net, asn = l.strip().split('\t')
+            net, asn = line.split('\t')
             if asn not in asn_nets:
                 asn_nets[asn] = ASN(asn)
 
@@ -227,13 +238,14 @@ if IPv4:
 
 if IPv6:
     c = 0
-    print('### PARSING IPv6 ###')
+    print('\n### PARSING IPv6 ###')
     with open(DATA_FILE_IP6, 'r', encoding='utf8') as f:
-        for l in f.readlines():
+        for line in f.readlines():
             if c % STATUS_INTERVAL == 0:
                 print('PARSING', c)
 
-            net, asn = l.strip().split(' ', 1)
+            # not tab separated :(
+            net, asn = line.split(' ', 1)
             asn = asn.strip()
 
             if not asn.isdigit():
@@ -247,7 +259,7 @@ if IPv6:
             c += 1
 
 
-print('### ADDING ###')
+print('\n### ADDING ###')
 logging.getLogger('mmdb_writer').setLevel(logging.WARNING)
 c = 0
 for asn, data in asn_nets.items():
@@ -272,16 +284,13 @@ for asn, data in asn_nets.items():
 
     c += 1
 
-print('### WRITING ###')
-# todo: implement CSV
+print('\n### WRITING ###')
 if IPv4:
     mmdb_ip4_full.to_db_file('asn_ipv4_full.mmdb')
-    mmdb_ip4_full.to_db_file('asn_ipv4_small.mmdb')
+    mmdb_ip4_small.to_db_file('asn_ipv4_small.mmdb')
 
 if IPv6:
     mmdb_ip6_full.to_db_file('asn_ipv6_full.mmdb')
-    mmdb_ip6_full.to_db_file('asn_ipv6_small.mmdb')
+    mmdb_ip6_small.to_db_file('asn_ipv6_small.mmdb')
 
-print('### DONE ###')
-if REFRESH_DATA:
-    cleanup()
+print('\n### DONE ###')

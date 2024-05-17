@@ -1,0 +1,82 @@
+{
+  "asn": "13335\n",
+  "organization": {
+    "status": "ok",
+    "address1": "101 Townsend St",
+    "address2": "",
+    "city": "San Francisco",
+    "state": "CA",
+    "zipcode": "94107-1934",
+    "country": "US",
+    "suite": "",
+    "floor": "",
+    "latitude": 37.7802848815918,
+    "longitude": -122.39048767089844,
+    "name": "Cloudflare, Inc.",
+    "aka": "",
+    "name_long": "",
+    "website": "https://www.cloudflare.com/",
+    "social_media": [
+      {
+        "service": "website",
+        "identifier": "https://www.cloudflare.com/"
+      }
+    ],
+    "notes": "Request your Peering Portal access at [https://www.cloudflare.com/partners/peering-portal/](https://www.cloudflare.com/partners/peering-portal/)\n\nOur [peering policy](https://www.cloudflare.com/peering-policy/)"
+  },
+  "info": {
+    "status": "ok",
+    "name": "Cloudflare",
+    "aka": "",
+    "name_long": "",
+    "irr_as_set": "AS13335:AS-CLOUDFLARE",
+    "website": "https://www.cloudflare.com",
+    "social_media": [
+      {
+        "service": "website",
+        "identifier": "https://www.cloudflare.com"
+      }
+    ],
+    "looking_glass": "",
+    "route_server": "",
+    "notes": "# PEERING: [https://peering.cloudflare.com/ ](https://peering.cloudflare.com/)\nOur network is a global anycast network. We determine the scope of routes to send you based upon your network's scope and footprint in relation to our point of interconnect.\n\nWe provision our configuration automatically from PeeringDB, please ensure your entry is kept up-to-date including IP addresses and number of prefixes announced.\n\nCloudflare requires all peering requests to be made through our peering portal. Authentication is managed through PeeringDB OIDC and allows admin's associated with ASNs in PeeringDB to request peering.",
+    "info_traffic": "",
+    "info_ratio": "Mostly Outbound",
+    "info_scope": "Global",
+    "info_types": [],
+    "info_prefixes4": 20000,
+    "info_prefixes6": 2000,
+    "info_unicast": true,
+    "info_multicast": true,
+    "info_ipv6": true,
+    "info_never_via_route_servers": false,
+    "policy_url": "https://www.cloudflare.com/peering-policy/",
+    "policy_general": "Open",
+    "policy_locations": "Preferred",
+    "policy_ratio": false,
+    "policy_contracts": "Not Required",
+    "status_dashboard": "",
+    "rir_status": "ok",
+    "rir_status_updated": "2022-07-27 05:29:57"
+  },
+  "contacts": {
+    "noc": {
+      "name": "NOC",
+      "phone": "",
+      "email": "noc@cloudflare.com",
+      "url": ""
+    },
+    "policy": {
+      "name": "Peering Coordinator",
+      "phone": "+16503198930",
+      "email": "peering@cloudflare.com",
+      "url": ""
+    },
+    "abuse": {
+      "name": "Trust and Safety",
+      "phone": "+16503198930",
+      "email": "abuse@cloudflare.com",
+      "url": ""
+    }
+  }
+}
