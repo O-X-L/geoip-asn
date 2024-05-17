@@ -1,0 +1,4 @@
+peeringdb.sqlite3
+*.tsv
+*.mmdb
+*.csv

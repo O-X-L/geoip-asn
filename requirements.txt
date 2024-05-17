@@ -1,0 +1,9 @@
+# building
+netaddr
+peeringdb
+django_peeringdb
+django
+mmdb_writer
+
+# testing
+maxminddb
