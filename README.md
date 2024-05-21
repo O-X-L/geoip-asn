@@ -4,6 +4,8 @@ If you have an idea on how to improve this project: [feel free to start a discus
 
 Thanks go to the author of [hackitu.de](https://www.hackitu.de/geoip/) for sharing his knowledge about this topic.
 
+If you don't care about the License restrictions - you may want to use the free [IPInfo](https://ipinfo.io/products/free-ip-database) or [MaxMind](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data) databases. In comparison with these - the database provided by **this project has pretty much NO usage restrictions**.
+
 ## Data sources
 
 IP to ASN:
@@ -20,22 +22,30 @@ Data is updated daily.
 
 ### Download
 
-* [IPv4 Stripped in MMDB format](https://geoip.oxl.at/file/asn_ipv4_small.mmdb.zip) (*recommended*)
-* [IPv6 Stripped in MMDB format](https://geoip.oxl.at/file/asn_ipv6_small.mmdb.zip)
-* [IPv4 Stripped in JSON format](https://geoip.oxl.at/file/asn_ipv4_small.json.zip)
-* [IPv6 Stripped in JSON format](https://geoip.oxl.at/file/asn_ipv6_small.json.zip)
+Limit: 2 Downloads per day
 
+Note: Databases in MMDB format might be faster and cheaper to query.
+
+#### IPv4
+
+* [IPv4 Stripped in MMDB format](https://geoip.oxl.at/file/asn_ipv4_small.mmdb.zip) (*recommended*)
 * [IPv4 Full in MMDB format](https://geoip.oxl.at/file/asn_ipv4_full.mmdb.zip)
-* [IPv6 Full in MMDB format](https://geoip.oxl.at/file/asn_ipv6_full.mmdb.zip)
+* [IPv4 Stripped in JSON format](https://geoip.oxl.at/file/asn_ipv4_small.json.zip)
 * [IPv4 Full in JSON format](https://geoip.oxl.at/file/asn_ipv4_full.json.zip)
+
+
+#### IPv6
+
+* [IPv6 Stripped in MMDB format](https://geoip.oxl.at/file/asn_ipv6_small.mmdb.zip)
+* [IPv6 Full in MMDB format](https://geoip.oxl.at/file/asn_ipv6_full.mmdb.zip)
+* [IPv6 Stripped in JSON format](https://geoip.oxl.at/file/asn_ipv6_small.json.zip)
 * [IPv6 Full in JSON format](https://geoip.oxl.at/file/asn_ipv6_full.json.zip)
+
+#### IPv4 + IPv6
 
 * [IPv4+IPv6 Stripped in JSON format](https://geoip.oxl.at/file/asn_small.json.zip)
 * [IPv4+IPv6 Full in JSON format](https://geoip.oxl.at/file/asn_full.json.zip)
 
-Limit: 2 Downloads per day
-
-Note: Databases in MMDB format might be faster and cheaper to query.
 
 #### Schema Examples
 
@@ -74,7 +84,7 @@ Limits:
 
 Free to use.
 
-If you are nice, you can optionally mention that you use this IP data: 
+If you are nice, you can **optionally** mention that you use this IP data: 
 
 ```html
 <p>IP address data powered by <a href="https://geoip.oxl.at">OXL</a></p>
