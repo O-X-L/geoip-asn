@@ -48,10 +48,15 @@ Note: Databases in MMDB format might be faster and cheaper to query.
 
 ### API
 
-[ASN API](https://geoip.oxl.at/api/asn)
+[IP-to-ASN API](https://geoip.oxl.at/api/ip)
+[ASN Lookup API](https://geoip.oxl.at/api/asn)
 
 ```
-curl -XGET https://geoip.oxl.at/api/asn/1.1.1.1
+# IP to ASN
+curl -XGET https://geoip.oxl.at/api/ip/1.1.1.1
+
+# ASN Lookup
+curl -XGET https://geoip.oxl.at/api/asn/13335
 ```
 
 Limits:
