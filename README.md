@@ -2,6 +2,8 @@
 
 If you have an idea on how to improve this project: [feel free to start a discussion](https://github.com/O-X-L/geoip-asn/discussions)
 
+Thanks go to the author of [hackitu.de](https://www.hackitu.de/geoip/) for sharing his knowledge about this topic.
+
 ## Data sources
 
 IP to ASN:
@@ -20,25 +22,27 @@ Data is updated daily.
 
 * [IPv4 Stripped in MMDB format](https://geoip.oxl.at/file/asn_ipv4_small.mmdb.zip) (*recommended*)
 * [IPv6 Stripped in MMDB format](https://geoip.oxl.at/file/asn_ipv6_small.mmdb.zip)
-<!--
-* [IPv4 Stripped in CSV format](https://geoip.oxl.at/file/asn_ipv4_small.csv.zip)
-* [IPv6 Stripped in CSV format](https://geoip.oxl.at/file/asn_ipv4_small.csv.zip)
--->
+* [IPv4 Stripped in JSON format](https://geoip.oxl.at/file/asn_ipv4_small.json.zip)
+* [IPv6 Stripped in JSON format](https://geoip.oxl.at/file/asn_ipv6_small.json.zip)
 
 * [IPv4 Full in MMDB format](https://geoip.oxl.at/file/asn_ipv4_full.mmdb.zip)
 * [IPv6 Full in MMDB format](https://geoip.oxl.at/file/asn_ipv6_full.mmdb.zip)
-<!--
-* [IPv4 Full in CVS format](https://geoip.oxl.at/file/asn_ipv4_full.csv.zip)
-* [IPv6 Full in CVS format](https://geoip.oxl.at/file/asn_ipv6_full.csv.zip)
--->
+* [IPv4 Full in JSON format](https://geoip.oxl.at/file/asn_ipv4_full.json.zip)
+* [IPv6 Full in JSON format](https://geoip.oxl.at/file/asn_ipv6_full.json.zip)
 
-Limit: 1 Download per day
+* [IPv4+IPv6 Stripped in JSON format](https://geoip.oxl.at/file/asn_small.json.zip)
+* [IPv4+IPv6 Full in JSON format](https://geoip.oxl.at/file/asn_full.json.zip)
 
+Limit: 2 Downloads per day
+
+Note: Databases in MMDB format might be faster and cheaper to query.
 
 #### Schema Examples
 
-* [Full](https://github.com/O-X-L/geoip-asn/blob/latest/example/full.json)
-* [Small](https://github.com/O-X-L/geoip-asn/blob/latest/example/small.json)
+* [MMDB Full](https://github.com/O-X-L/geoip-asn/blob/latest/example/mmdb_full.json)
+* [MMDB Small](https://github.com/O-X-L/geoip-asn/blob/latest/example/mmdb_small.json)
+* [JSON Full](https://github.com/O-X-L/geoip-asn/blob/latest/example/json_full.json)
+* [JSON Small](https://github.com/O-X-L/geoip-asn/blob/latest/example/json_small.json)
 
 ----
 
