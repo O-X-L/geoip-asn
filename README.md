@@ -18,7 +18,7 @@ ASN information:
 
 ## Databases
 
-[![Database Updated At](https://geoip.oxl.at/file/updated.svg)](https://geoip.oxl.at/file/updated.svg)
+[![Database Updated At](https://geoip.oxl.at/file/updated_at.svg)](https://geoip.oxl.at/file/updated_at.svg)
 
 Data is updated daily.
 
