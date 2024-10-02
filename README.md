@@ -73,8 +73,8 @@ curl -XGET https://geoip.oxl.at/api/asn/13335
 
 Limits:
 
-* 50 Requests per 10 min
-* 200 Requests per day
+* 100 Requests per 10 min
+* 1000 Requests per day
 
 ----
 

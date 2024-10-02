@@ -637,5 +637,5 @@ copy of the Program in return for a fee.
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-    E-Mail: rath@oxl.at
+    E-Mail: contact@oxl.at
     Web: https://www.oxl.at
