@@ -18,35 +18,35 @@ ASN information:
 
 ## Databases
 
-[![Database Updated At](https://geoip.oxl.at/file/updated_at.svg)](https://geoip.oxl.at/file/updated_at.svg)
+[![Database Updated At](https://geoip.oxl.app/file/updated_at.svg)](https://geoip.oxl.app/file/updated_at.svg)
 
 Data is updated daily.
 
 ### Download
 
-Limit: 2 Downloads per day
+Limit: 2 Downloads per IP & day
 
 Note: Databases in MMDB format might be faster and cheaper to query.
 
 #### IPv4
 
-* [IPv4 Stripped in MMDB format](https://geoip.oxl.at/file/asn_ipv4_small.mmdb.zip) (*recommended*)
-* [IPv4 Full in MMDB format](https://geoip.oxl.at/file/asn_ipv4_full.mmdb.zip)
-* [IPv4 Stripped in JSON format](https://geoip.oxl.at/file/asn_ipv4_small.json.zip)
-* [IPv4 Full in JSON format](https://geoip.oxl.at/file/asn_ipv4_full.json.zip)
+* [IPv4 Stripped in MMDB format](https://geoip.oxl.app/file/asn_ipv4_small.mmdb.zip) (*recommended*)
+* [IPv4 Full in MMDB format](https://geoip.oxl.app/file/asn_ipv4_full.mmdb.zip)
+* [IPv4 Stripped in JSON format](https://geoip.oxl.app/file/asn_ipv4_small.json.zip)
+* [IPv4 Full in JSON format](https://geoip.oxl.app/file/asn_ipv4_full.json.zip)
 
 
 #### IPv6
 
-* [IPv6 Stripped in MMDB format](https://geoip.oxl.at/file/asn_ipv6_small.mmdb.zip)
-* [IPv6 Full in MMDB format](https://geoip.oxl.at/file/asn_ipv6_full.mmdb.zip)
-* [IPv6 Stripped in JSON format](https://geoip.oxl.at/file/asn_ipv6_small.json.zip)
-* [IPv6 Full in JSON format](https://geoip.oxl.at/file/asn_ipv6_full.json.zip)
+* [IPv6 Stripped in MMDB format](https://geoip.oxl.app/file/asn_ipv6_small.mmdb.zip)
+* [IPv6 Full in MMDB format](https://geoip.oxl.app/file/asn_ipv6_full.mmdb.zip)
+* [IPv6 Stripped in JSON format](https://geoip.oxl.app/file/asn_ipv6_small.json.zip)
+* [IPv6 Full in JSON format](https://geoip.oxl.app/file/asn_ipv6_full.json.zip)
 
 #### IPv4 + IPv6
 
-* [IPv4+IPv6 Stripped in JSON format](https://geoip.oxl.at/file/asn_small.json.zip)
-* [IPv4+IPv6 Full in JSON format](https://geoip.oxl.at/file/asn_full.json.zip)
+* [IPv4+IPv6 Stripped in JSON format](https://geoip.oxl.app/file/asn_small.json.zip)
+* [IPv4+IPv6 Full in JSON format](https://geoip.oxl.app/file/asn_full.json.zip)
 
 
 #### Schema Examples
@@ -60,21 +60,21 @@ Note: Databases in MMDB format might be faster and cheaper to query.
 
 ### API
 
-* [IP-to-ASN API](https://geoip.oxl.at/api/ip)
-* [ASN Lookup API](https://geoip.oxl.at/api/asn/13335)
+* [IP-to-ASN API](https://geoip.oxl.app/api/ip)
+* [ASN Lookup API](https://geoip.oxl.app/api/asn/13335)
 
 ```
 # IP to ASN
-curl -XGET https://geoip.oxl.at/api/ip/1.1.1.1
+curl -XGET https://geoip.oxl.app/api/ip/1.1.1.1
 
 # ASN Lookup
-curl -XGET https://geoip.oxl.at/api/asn/13335
+curl -XGET https://geoip.oxl.app/api/asn/13335
 ```
 
 Limits:
 
-* 100 Requests per 10 min
-* 1000 Requests per day
+* 100 Requests per IP & 10 min
+* 1000 Requests per IP & day
 
 ----
 
@@ -89,7 +89,7 @@ Free to use.
 If you are nice, you can **optionally** mention that you use this IP data: 
 
 ```html
-<p>IP address data powered by <a href="https://geoip.oxl.at">OXL</a></p>
+<p>IP address data powered by <a href="https://geoip.oxl.app">OXL</a></p>
 ```
 
 ### Build Script (this repository)
