@@ -6,6 +6,8 @@ Thanks go to the author of [hackitu.de](https://www.hackitu.de/geoip/) for shari
 
 If you don't care about the License restrictions - you may want to use the free [IPInfo](https://ipinfo.io/products/free-ip-database) or [MaxMind](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data) databases. In comparison with these - the database provided by **this project has pretty much NO usage restrictions**.
 
+Also check out our [Risk-Database](https://github.com/O-X-L/risk-db).
+
 ## Data sources
 
 IP to ASN:
