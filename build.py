@@ -36,7 +36,7 @@ JSON = True
 # you may not need to modify those
 STATUS_INTERVAL = 10_000
 DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
-DESCRIPTION = 'OXL ASN Database (BSD 3-Clause License)'
+DESCRIPTION = 'OXL ASN Database - geoip.oxl.app (BSD 3-Clause License)'
 BGP_SOURCE = 'https://thyme.apnic.net/.combined'
 DATA_FILE_IP4 = 'data-raw-table_ip4.tsv'
 DATA_FILE_IP6 = 'data-raw-table_ip6.tsv'
