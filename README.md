@@ -20,7 +20,7 @@ ASN information:
 
 ## Databases
 
-[![Database Updated At](https://geoip.oxl.app/file/updated_at.svg)](https://geoip.oxl.app/file/updated_at.svg)
+[![Database Updated At](https://geoip.oxl.app/file/updated.svg)](https://geoip.oxl.app/file/updated.svg)
 
 Data is updated daily.
 

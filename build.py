@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # LICENSE: GPLv3
-# COPYRIGHT: Rath Rene
+# COPYRIGHT: Rath Pascal
 
 # DATA sources:
 #  IP to ASN
@@ -15,15 +15,15 @@ import logging
 from pathlib import Path
 from urllib.request import urlretrieve
 from os import remove as remove_file
-from os import getcwd
+from os import chdir, environ
+from os import system as os_shell
 from json import dumps as json_dumps
+from sys import exit as sys_exit
 
 from netaddr import IPSet
 from mmdb_writer import MMDBWriter
 from peeringdb import resource
 from peeringdb.client import Client as PeeringDBClient
-from peeringdb.commands import Sync
-from peeringdb.cli import check_load_config
 
 # main switches
 IPv4 = True
@@ -34,23 +34,30 @@ MMDB = True
 JSON = True
 
 # you may not need to modify those
+OUT_DIR = Path('/var/local/geoip')
+WORK_DIR = Path(f"{environ['HOME']}/.local/cache/geoip-asn")
 STATUS_INTERVAL = 10_000
 DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
 DESCRIPTION = 'OXL ASN Database - geoip.oxl.app (BSD 3-Clause License)'
 BGP_SOURCE = 'https://thyme.apnic.net/.combined'
-DATA_FILE_IP4 = 'data-raw-table_ip4.tsv'
-DATA_FILE_IP6 = 'data-raw-table_ip6.tsv'
-PDB_FILE = Path('peeringdb.sqlite3')
-DUMP_FILE_IP4_MMDB_FULL = 'asn_ipv4_full.mmdb'
-DUMP_FILE_IP4_MMDB_SMALL = 'asn_ipv4_small.mmdb'
-DUMP_FILE_IP6_MMDB_FULL = 'asn_ipv6_full.mmdb'
-DUMP_FILE_IP6_MMDB_SMALL = 'asn_ipv6_small.mmdb'
-DUMP_FILE_ALL_JSON_FULL = 'asn_full.json'
-DUMP_FILE_ALL_JSON_SMALL = 'asn_small.json'
-DUMP_FILE_IP4_JSON_FULL = 'asn_ipv4_full.json'
-DUMP_FILE_IP4_JSON_SMALL = 'asn_ipv4_small.json'
-DUMP_FILE_IP6_JSON_FULL = 'asn_ipv6_full.json'
-DUMP_FILE_IP6_JSON_SMALL = 'asn_ipv6_small.json'
+DATA_FILE_IP4 = WORK_DIR / 'data-raw-table_ip4.tsv'
+DATA_FILE_IP6 = WORK_DIR / 'data-raw-table_ip6.tsv'
+PDB_FILE = WORK_DIR / 'peeringdb.sqlite3'
+DUMP_FILE_IP4_MMDB_FULL = OUT_DIR / 'asn_ipv4_full.mmdb'
+DUMP_FILE_IP4_MMDB_SMALL = OUT_DIR / 'asn_ipv4_small.mmdb'
+DUMP_FILE_IP6_MMDB_FULL = OUT_DIR / 'asn_ipv6_full.mmdb'
+DUMP_FILE_IP6_MMDB_SMALL = OUT_DIR / 'asn_ipv6_small.mmdb'
+DUMP_FILE_ALL_JSON_FULL = OUT_DIR / 'asn_full.json'
+DUMP_FILE_ALL_JSON_SMALL = OUT_DIR / 'asn_small.json'
+DUMP_FILE_IP4_JSON_FULL = OUT_DIR / 'asn_ipv4_full.json'
+DUMP_FILE_IP4_JSON_SMALL = OUT_DIR / 'asn_ipv4_small.json'
+DUMP_FILE_IP6_JSON_FULL = OUT_DIR / 'asn_ipv6_full.json'
+DUMP_FILE_IP6_JSON_SMALL = OUT_DIR / 'asn_ipv6_small.json'
+
+if not WORK_DIR.is_dir():
+    WORK_DIR.mkdir(parents=True)
+
+chdir(WORK_DIR)
 
 mmdb_ip4_full = MMDBWriter(ip_version=4, description=DESCRIPTION)
 mmdb_ip6_full = MMDBWriter(ip_version=6, description=DESCRIPTION)
@@ -218,13 +225,18 @@ class ASN:
         }
 
 
+def clean_file(_f: Path):
+    if _f.is_file():
+        remove_file(_f)
+
+
 def cleanup():
     try:
         if IPv4:
-            remove_file(DATA_FILE_IP4)
+            clean_file(DATA_FILE_IP4)
 
         if IPv6:
-            remove_file(DATA_FILE_IP6)
+            clean_file(DATA_FILE_IP6)
 
     except FileNotFoundError:
         pass
@@ -232,12 +244,10 @@ def cleanup():
 
 if REFRESH_DATA or (not PDB_FILE.is_file() or PDB_FILE.stat().st_size < 10_000_000):
     print('\n### SYNCING PEERINGDB ###')
-    # running 'peeringdb sync' programmatically
-    Sync().handle(
-        check_load_config(getcwd()),
-        verbose=False, quiet=not PROGRESS, init=False, since=-1,
-        fetch_private=False,
-    )
+    if os_shell('peeringdb sync -q') != 0:
+        print('FAILED TO SYNC PEERINGDB')
+        sys_exit(1)
+
 
 if REFRESH_DATA or \
         (IPv4 and not Path(DATA_FILE_IP4).is_file()) or \
@@ -354,12 +364,12 @@ if IPv4 and IPv6 and JSON:
 
 if IPv4:
     if MMDB:
-        remove_file(DUMP_FILE_IP4_MMDB_FULL)
-        mmdb_ip4_full.to_db_file(DUMP_FILE_IP4_MMDB_FULL)
+        clean_file(DUMP_FILE_IP4_MMDB_FULL)
+        mmdb_ip4_full.to_db_file(str(DUMP_FILE_IP4_MMDB_FULL))
         del mmdb_ip4_full
 
-        remove_file(DUMP_FILE_IP4_MMDB_SMALL)
-        mmdb_ip4_small.to_db_file(DUMP_FILE_IP4_MMDB_SMALL)
+        clean_file(DUMP_FILE_IP4_MMDB_SMALL)
+        mmdb_ip4_small.to_db_file(str(DUMP_FILE_IP4_MMDB_SMALL))
         del mmdb_ip4_small
 
     if JSON:
@@ -373,12 +383,12 @@ if IPv4:
 
 if IPv6:
     if MMDB:
-        remove_file(DUMP_FILE_IP6_MMDB_FULL)
-        mmdb_ip6_full.to_db_file(DUMP_FILE_IP6_MMDB_FULL)
+        clean_file(DUMP_FILE_IP6_MMDB_FULL)
+        mmdb_ip6_full.to_db_file(str(DUMP_FILE_IP6_MMDB_FULL))
         del mmdb_ip6_full
 
-        remove_file(DUMP_FILE_IP6_MMDB_SMALL)
-        mmdb_ip6_small.to_db_file(DUMP_FILE_IP6_MMDB_SMALL)
+        clean_file(DUMP_FILE_IP6_MMDB_SMALL)
+        mmdb_ip6_small.to_db_file(str(DUMP_FILE_IP6_MMDB_SMALL))
         del mmdb_ip6_small
 
     if JSON:
