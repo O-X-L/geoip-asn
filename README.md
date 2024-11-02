@@ -4,7 +4,7 @@ If you have an idea on how to improve this project: [feel free to start a discus
 
 Thanks go to the author of [hackitu.de](https://www.hackitu.de/geoip/) for sharing his knowledge about this topic.
 
-If you don't care about the License restrictions - you may get better data of better quality by using the free [IPInfo](https://ipinfo.io/products/free-ip-database) or [MaxMind](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data) databases. In comparison with these - the database provided by **this project has pretty much NO usage restrictions**.
+If you don't care about the License restrictions - you may get data of better quality by using the free [IPInfo](https://ipinfo.io/products/free-ip-database) or [MaxMind](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data) databases. In comparison with these - the database provided by **this project has pretty much NO usage restrictions**.
 
 Also check out our [Risk-Database](https://github.com/O-X-L/risk-db).
 
