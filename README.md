@@ -26,8 +26,6 @@ Data is updated daily.
 
 ### Download
 
-Limit: 2 Downloads per IP & day
-
 Note: Databases in MMDB format might be faster and cheaper to query.
 
 #### IPv4
@@ -58,6 +56,11 @@ Note: Databases in MMDB format might be faster and cheaper to query.
 * [JSON Full](https://github.com/O-X-L/geoip-asn/blob/latest/example/json_full.json)
 * [JSON Small](https://github.com/O-X-L/geoip-asn/blob/latest/example/json_small.json)
 
+**Limits**:
+
+* Without token: 2 Downloads per IP & day
+* With token: 5 Downloads per IP & day
+
 ----
 
 ### API
@@ -73,10 +76,20 @@ curl -XGET https://geoip.oxl.app/api/ip/1.1.1.1
 curl -XGET https://geoip.oxl.app/api/asn/13335
 ```
 
-Limits:
+**Limits**:
 
-* 100 Requests per IP & 10 min
-* 1000 Requests per IP & day
+* Without token:
+
+  * 500 Requests per IP & 10 min
+  * 5000 Requests per IP & day
+  * Anti-DOS
+
+* With token:
+
+  * 5000 Requests per IP & 10 min
+  * Anti-DOS
+
+If you want to get a (free) token for your systems - feel free to contact us at: [geoip@oxl.at](mailto:risk-db@oxl.at)
 
 ----
 
