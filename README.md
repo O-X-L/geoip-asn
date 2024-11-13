@@ -1,5 +1,9 @@
 # Open IP to ASN/Internet Provider Database
 
+[![Lint](https://github.com/O-X-L/geoip-asn/actions/workflows/lint.yml/badge.svg)](https://github.com/O-X-L/geoip-asn/actions/workflows/lint.yml)
+[![API Uptime](https://status.oxl.at/api/v1/endpoints/2--oxl-apis_geoip-db/uptimes/7d/badge.svg
+)](https://status.oxl.at/endpoints/2--oxl-apis_geoip-db)
+
 If you have an idea on how to improve this project: [feel free to start a discussion](https://github.com/O-X-L/geoip-asn/discussions)
 
 Thanks go to the author of [hackitu.de](https://www.hackitu.de/geoip/) for sharing his knowledge about this topic.
