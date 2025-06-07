@@ -20,7 +20,7 @@ from os import system as os_shell
 from json import dumps as json_dumps
 from sys import exit as sys_exit
 
-from netaddr import IPSet
+from netaddr import IPNetwork, cidr_merge, IPSet
 from mmdb_writer import MMDBWriter
 from peeringdb import resource
 from peeringdb.client import Client as PeeringDBClient
@@ -78,17 +78,22 @@ def _empty(v: any) -> any:
     return v
 
 
-def serialize_ipset(ipset: IPSet) -> list:
-    # pylint: disable=W0212
-    return [str(_) for _ in sorted(ipset._cidrs)]
+def serialize_nets(networks: list[IPNetwork]) -> list:
+    networks = [str(_) for _ in networks]
+    networks.sort()
+    return networks
 
 
 class ASN:
     def __init__(self, asn_id: int):
         # pylint: disable=E1101
         self.id = asn_id
-        self.ip4 = IPSet()
-        self.ip6 = IPSet()
+        self.ip4 = []
+        self.ip6 = []
+        self.ip4_ipset = IPSet()
+        self.ip6_ipset = IPSet()
+        self.ip4_count = 0
+        self.ip6_count = 0
         self._info = pdb.all(resource.Network).filter(asn=asn_id).first()
         if self._info is None:
             self._org = None
@@ -224,6 +229,19 @@ class ASN:
             ) for role, contact in full.items()
         }
 
+    def summarize_networks(self):
+        self.ip4 = cidr_merge(self.ip4)
+        for n in self.ip4:
+            self.ip4_ipset.add(n)
+
+        self.ip4_count = sum(n.size for n in self.ip4)
+
+        self.ip6 = cidr_merge(self.ip6)
+        for n in self.ip6:
+            self.ip6_ipset.add(n)
+
+        self.ip6_count = sum(n.size for n in self.ip6)
+
 
 def clean_file(_f: Path):
     if _f.is_file():
@@ -276,7 +294,7 @@ if IPv4:
             if asn not in asn_nets:
                 asn_nets[asn] = ASN(asn)
 
-            asn_nets[asn].ip4.add(net)
+            asn_nets[asn].ip4.append(IPNetwork(net))
             c += 1
 
 
@@ -301,9 +319,11 @@ if IPv6:
             if asn not in asn_nets:
                 asn_nets[asn] = ASN(asn)
 
-            asn_nets[asn].ip6.add(net)
+            asn_nets[asn].ip6.append(IPNetwork(net))
             c += 1
 
+for asn in asn_nets.values():
+    asn.summarize_networks()
 
 print('\n### ADDING ###')
 logging.getLogger('mmdb_writer').setLevel(logging.WARNING)
@@ -313,8 +333,18 @@ for asn, data in asn_nets.items():
         print('ADDING', c)
 
     # add additional ASN info below
-    dump_full_data = {'organization': data.organization, 'info': data.info, 'contacts': data.contacts}
+    dump_ip_count = {
+        'ipv4_count': data.ip4_count,
+        'ipv6_count': data.ip6_count,
+    }
+    dump_full_data = {
+        **dump_ip_count,
+        'organization': data.organization,
+        'info': data.info,
+        'contacts': data.contacts,
+    }
     dump_small_data = {
+        **dump_ip_count,
         'organization': data.organization_small,
         'info': data.info_small,
         'contacts': data.contacts_small,
@@ -323,21 +353,21 @@ for asn, data in asn_nets.items():
     dump_mmdb_small = {'asn': asn, **dump_small_data}
     if IPv4:
         if MMDB:
-            mmdb_ip4_full.insert_network(data.ip4, dump_mmdb_full)
-            mmdb_ip4_small.insert_network(data.ip4, dump_mmdb_small)
+            mmdb_ip4_full.insert_network(data.ip4_ipset, dump_mmdb_full)
+            mmdb_ip4_small.insert_network(data.ip4_ipset, dump_mmdb_small)
 
         if JSON:
-            json_ip4_full[asn] = {'ipv4': serialize_ipset(data.ip4), **dump_full_data}
-            json_ip4_small[asn] = {'ipv4': serialize_ipset(data.ip4), **dump_small_data}
+            json_ip4_full[asn] = {'ipv4': serialize_nets(data.ip4), **dump_full_data}
+            json_ip4_small[asn] = {'ipv4': serialize_nets(data.ip4), **dump_small_data}
 
     if IPv6:
         if MMDB:
-            mmdb_ip6_full.insert_network(data.ip6, dump_mmdb_full)
-            mmdb_ip6_small.insert_network(data.ip6, dump_mmdb_small)
+            mmdb_ip6_full.insert_network(data.ip6_ipset, dump_mmdb_full)
+            mmdb_ip6_small.insert_network(data.ip6_ipset, dump_mmdb_small)
 
         if JSON:
-            json_ip6_full[asn] = {'ipv6': serialize_ipset(data.ip6), **dump_full_data}
-            json_ip6_small[asn] = {'ipv6': serialize_ipset(data.ip6), **dump_small_data}
+            json_ip6_full[asn] = {'ipv6': serialize_nets(data.ip6), **dump_full_data}
+            json_ip6_small[asn] = {'ipv6': serialize_nets(data.ip6), **dump_small_data}
 
     if IPv4 and IPv6 and JSON:
         json_all_full[asn] = {
