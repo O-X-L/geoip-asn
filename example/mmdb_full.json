@@ -1,5 +1,7 @@
 {
   "asn": 13335,
+  "ipv4_count": 1810688,
+  "ipv6_count": 812606086022004500000000000000,
   "organization": {
     "status": "ok",
     "address1": "101 Townsend St",

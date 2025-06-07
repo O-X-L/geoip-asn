@@ -51,12 +51,18 @@ Note: Databases in MMDB format might be faster and cheaper to query.
 * [IPv4+IPv6 Full in JSON format](https://geoip.oxl.app/file/asn_full.json.zip)
 
 
-#### Schema Examples
+#### Examples
 
 * [MMDB Full](https://github.com/O-X-L/geoip-asn/blob/latest/example/mmdb_full.json)
 * [MMDB Small](https://github.com/O-X-L/geoip-asn/blob/latest/example/mmdb_small.json)
 * [JSON Full](https://github.com/O-X-L/geoip-asn/blob/latest/example/json_full.json)
 * [JSON Small](https://github.com/O-X-L/geoip-asn/blob/latest/example/json_small.json)
+
+#### Schema
+
+* [MMDB](https://github.com/O-X-L/geoip-asn/blob/latest/schema/asn_mmdb.md)
+* [JSON](https://github.com/O-X-L/geoip-asn/blob/latest/schema/asn_json.md)
+
 
 **Limits**:
 
@@ -69,6 +75,8 @@ Note: Databases in MMDB format might be faster and cheaper to query.
 
 [![API Uptime](https://status.oxl.at/api/v1/endpoints/2--oxl-apis_geoip-db/uptimes/7d/badge.svg
 )](https://status.oxl.at/endpoints/2--oxl-apis_geoip-db)
+
+[Swagger API-Docs](https://geoip.oxl.app/api/docs/)
 
 * [IP-to-ASN API](https://geoip.oxl.app/api/ip)
 * [ASN Lookup API](https://geoip.oxl.app/api/asn/13335)

@@ -1,0 +1,209 @@
+---
+
+summary: 'Query ASN/Internet-Provider information'
+
+parameters:
+  - in: 'path'
+    name: 'nr'
+    description: 'ASN to query'
+    type: 'string'
+
+definitions:
+  ASNInfoJSON:
+    type: 'object'
+    properties:
+      ipv4_count:
+        type: 'number'
+        description: 'Number of IPv4 addresses the AS announces via BGP'
+      ipv4:
+        type: 'array'
+        items:
+          type: 'string'
+        description: 'IPv4 network the AS announces via BGP'
+
+      ipv6:
+        type: 'array'
+        items:
+          type: 'string'
+        description: 'IPv6 network the AS announces via BGP'
+      ipv6_count:
+        type: 'number'
+        description: 'Number of IPv6 addresses the AS announces via BGP'
+
+      contacts:
+        type: 'object'
+        properties:
+          abuse:
+            type: 'object'
+            properties:
+              email:
+                type: 'string'
+              name:
+                type: 'string'
+              phone:
+                type: 'string'
+              url:
+                type: 'string'
+            required: []
+          noc:
+            type: 'object'
+            properties:
+              name:
+                type: 'string'
+              email:
+                type: 'string'
+              phone:
+                type: 'string'
+              url:
+                type: 'string'
+            required: []
+          policy:
+            type: 'object'
+            properties:
+              name:
+                type: 'string'
+              email:
+                type: 'string'
+              phone:
+                type: 'string'
+              url:
+                type: 'string'
+            required: []
+          required: []
+
+      info:
+        type: 'object'
+        properties:
+          status:
+            type: 'string'
+          name:
+            type: 'string'
+          aka:
+            type: 'string'
+          name_long:
+            type: 'string'
+          irr_as_set:
+            type: 'string'
+          website:
+            type: 'string'
+          social_media:
+            type: 'array'
+            items:
+              type: 'object'
+              properties:
+                service:
+                  type: 'string'
+                identifier:
+                  type: 'string'
+          looking_glass:
+            type: 'string'
+          route_server:
+            type: 'string'
+          notes:
+            type: 'string'
+          info_traffic:
+            type: 'string'
+          info_ratio:
+            type: 'string'
+          info_scope:
+            type: 'string'
+          info_types:
+            type: 'array'
+            items:
+              type: 'string'
+          info_prefixes4:
+            type: 'number'
+          info_prefixes6:
+            type: 'number'
+          info_unicast:
+            type: 'boolean'
+          info_multicast:
+            type: 'boolean'
+          info_ipv6:
+            type: 'boolean'
+          info_never_via_route_servers:
+            type: 'boolean'
+          policy_url:
+            type: 'string'
+          policy_general:
+            type: 'string'
+          policy_locations:
+            type: 'string'
+          policy_ratio:
+            type: 'boolean'
+          policy_contracts:
+            type: 'string'
+          status_dashboard:
+            type: 'string'
+          rir_status:
+            type: 'string'
+          rir_status_updated:
+            type: 'string'
+        required: ['website', 'country']
+
+      organization:
+        type: 'object'
+        properties:
+          status:
+            type: 'string'
+          address1:
+            type: 'string'
+          address2:
+            type: 'string'
+          city:
+            type: 'string'
+          state:
+            type: 'string'
+          zipcode:
+            type: 'string'
+          country:
+            type: 'string'
+          suite:
+            type: 'string'
+          floor:
+            type: 'string'
+          latitude:
+            type: 'number'
+          longitude:
+            type: 'number'
+          name:
+            type: 'string'
+          aka:
+            type: 'string'
+          name_long:
+            type: 'string'
+          website:
+            type: 'string'
+          social_media:
+            type: 'array'
+            items:
+              type: 'object'
+              properties:
+                service:
+                  type: 'string'
+                identifier:
+                  type: 'string'
+          notes:
+            type: 'string'
+        required: ['name']
+
+  ErrorMsg:
+    type: 'object'
+    properties:
+      msg:
+        type: 'string'
+        description: 'Error Message'
+
+responses:
+  200:
+    description: 'ASN information is returned'
+    schema:
+      $ref: '#/definitions/ASNInfoJSON'
+  400:
+    description: 'Invalid ASN provided'
+    schema:
+      $ref: '#/definitions/ErrorMsg'
+  404:
+    description: 'Provided ASN not found'
+    schema:
+      $ref: '#/definitions/ErrorMsg'

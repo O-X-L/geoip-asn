@@ -33,8 +33,9 @@ REFRESH_DATA = True
 MMDB = True
 JSON = True
 
-# you may not need to modify those
 OUT_DIR = Path('/var/local/geoip')
+
+# you may not need to modify those
 WORK_DIR = Path(f"{environ['HOME']}/.local/cache/geoip-asn")
 STATUS_INTERVAL = 10_000
 DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"

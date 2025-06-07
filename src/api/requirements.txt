@@ -1,0 +1,16 @@
+flask
+waitress
+flasgger
+
+# building
+netaddr
+peeringdb
+django_peeringdb
+django
+mmdb_writer
+
+# testing
+maxminddb
+
+# repo
+anybadge
