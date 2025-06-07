@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+# pylint: disable=E0606
+
 from json import loads as json_loads
 from pathlib import Path
 
@@ -66,13 +68,13 @@ def asn_lookup(nr) -> Response:
 
 @app.route('/')
 def catch_base():
-    return redirect(f"https://geoip.oxl.app/api/ip", code=302)
+    return redirect('https://geoip.oxl.app/api/ip', code=302)
 
 
 @app.route('/<path:path>')
 def catch_all(path):
     del path
-    return redirect(f"https://geoip.oxl.app/api/ip", code=302)
+    return redirect('https://geoip.oxl.app/api/ip', code=302)
 
 
 if __name__ == '__main__':
