@@ -1,5 +1,13 @@
 # Open IP to ASN/Internet Provider Database
 
+<p align="center">
+    <a title="Support this Project (Donate, Support-Licenses)" href="https://shop.oxl.app/collections/open-source">
+        <img src="https://files.oxl.at/img/badge-oss-support.svg" alt="Support Badge (Donate, Support-Licenses)"/>
+    </a>
+</p>
+
+----
+
 [![Lint](https://github.com/O-X-L/geoip-asn/actions/workflows/lint.yml/badge.svg)](https://github.com/O-X-L/geoip-asn/actions/workflows/lint.yml)
 
 If you have an idea on how to improve this project: [feel free to start a discussion](https://github.com/O-X-L/geoip-asn/discussions)
